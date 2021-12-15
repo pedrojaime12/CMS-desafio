@@ -8,7 +8,6 @@ function addWorkCard(params = {}){
 
     template.content.querySelector(".portfolio-card-title").textContent = params.title
     template.content.querySelector(".portfolio-card-desc").textContent = params.description
-    template.content.querySelector(".portfolio-img").src = params.image
     template.content.querySelector(".portfolio-card-link").textcontent = params.url
 
     // primero importo el nodo de template en la var=> clone
@@ -24,28 +23,32 @@ function getWorks(){
         return res.json()
     })
     .then((obj)=>{
-        console.log(obj)
+      //  console.log(obj)
+
+
         const fieldsCollect = obj.items.map((item) => {
             return {
                 title : item.fields.titulo,
                 description : item.fields.descripcion,
-                image : item.fields.imagen
-
+                url : item.fields.url
             };
         });
+
+
         return fieldsCollect;
     });   
 }
 
 function main(){
     getWorks().then((works)=>{
-        console.log(works) 
+       console.log(works) 
         for(const w of works){
             addWorkCard(w)
         }
         
 
     })
+    
     /* 
     addWorkCard({
         title:"SOY EL TITLE",
@@ -53,13 +56,8 @@ function main(){
         image:"https://image.shutterstock.com/image-photo/global-technology-concept-260nw-1139809547.jpg",
         url: "https://google.com"  
     })
-    addWorkCard({
-        title:"SOY EL TITLE again",
-        description: "Un trabajaso en el cual me esforce",
-        image:"https://media.istockphoto.com/photos/technology-abstract-picture-id1148091793?k=20&m=1148091793&s=612x612&w=0&h=yunVTPC-vyrQ4VBCOrUYkYytQKtWM7zYj3KxsLwPHto=",
-        url: "https://google.com"  
-    })
     */
+
 }
 
 main();
